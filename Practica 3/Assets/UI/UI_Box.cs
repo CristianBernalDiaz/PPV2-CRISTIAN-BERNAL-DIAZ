@@ -9,6 +9,7 @@ public class UI_Box : MonoBehaviour
 
     public string Title = "";
     public string Content = "";
+
     void Start()
     {
         BoxHeaderTitle.Title.text = Title;

@@ -5,11 +5,11 @@ using TMPro;
 
 public class UI_Header_Title : UI_Box_Header
 {
-    public TMP_Text Title;
+    public TMP_Text title;
 
     void Start()
     {
-        Title = GetComponent<TMP_Text>();
+        title = GetComponent<TMP_Text>();
     }
 
    

@@ -10,7 +10,7 @@ public class UI_Box_BackGround : UI_Box
     void Start()
     {
         BackGround = GetComponent<Sprite>();
-        BackGroundColor = GetComponent<SpriteRenderer>().color;
+        //BackGroundColor = GetComponent<SpriteRenderer>().color;
     }
 
     

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class UI_Box_Header : UI_Box_BackGround
 {
-    private Sprite header;
-    public Color headerColor;
+    private Sprite Header;
+    public Color HeaderColor;
 
     void Start()
     {
-        header = GetComponent<Sprite>();
-        //headerColor = GetComponent<SpriteRenderer>().color; 
+        Header = GetComponent<Sprite>();
+        //HeaderColor = GetComponent<SpriteRenderer>().color; 
     }
 
     // Update is called once per frame
