@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Villager : MonoBehaviour
-{
     public enum VillagerType
     {
         Normal = 0,
@@ -19,7 +17,13 @@ public class Villager : MonoBehaviour
         public Item SelectedItem;
         public List<Item> Inventory;
         public List<Item> TradeItems;
-        public VillagerBase()
+    private void Start()
+    {
+        Item RawMeat = new Item("Raw Meat");
+        AddItemToInventory(RawMeat);
+        Debug.Log("Item name: " + Inventory[0].name);
+    }
+    public VillagerBase()
         {
 
         }
@@ -96,4 +100,3 @@ public class Villager : MonoBehaviour
             TradeItems = new List<Item>();
         }
     }
-}
