@@ -18,7 +18,7 @@ public class UI_BOX : MonoBehaviour
         BoxBackGround = transform.GetChild(0).GetComponent<UI_BOX_BACKGROUND>();
         BoxHeader = transform.GetChild(0).transform.GetChild(0).GetComponent<UI_BOX_HEADER>();
         BoxContent = transform.GetChild(0).transform.GetChild(1).transform.GetChild(0).GetComponent<UI_BACKGROUND_CONTAINER_TITLE>();
-        BoxHeaderTitle.Title.text = Title;
+        BoxHeaderTitle.Title = Title;
         BoxContent.Content.text = Content;
 
         transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(hasCloseButton);
