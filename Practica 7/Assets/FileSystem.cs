@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
+
 public class FileSystem : MonoBehaviour
 {
     public GameObject obj;
+    public GameObject obj2;
     public bool isSavingPosition = false;
-    void createFile()
+    void CreateFile(string _fileName, string _extension, string _data)
     {
         //1) Acceder al path del archivo
         string fileName = "example";
@@ -23,13 +26,13 @@ public class FileSystem : MonoBehaviour
         string data = "Login Date: " + System.DateTime.Now + "\n";
 
         //5)Agregar la información al archivo
-        File.AppendAllText(path, data);
+        File.AppendAllText(path, _data);
     }
 
     void SaveObjectPosition(Transform _objTransform)
     {
         //1) Acceder al path del archivo
-        string fileName = "example";
+        string fileName = "Cristian";
         string extension = ".txt";
 
         string path = Application.dataPath + "/Resourses/" + fileName + extension;
@@ -62,20 +65,6 @@ public class FileSystem : MonoBehaviour
         return data;
     }
 
-    void Start()
-    {
-        //createFile();
-        //1) Guarda la posicion en un nuevo archivo
-        SaveObjectPosition(obj.transform);
-        //2) Lee l ainformacion de ese archivo
-        string data = ReadFile("example", "_txt");
-        Debug.Log("Informacion del archivo: \n" + data);
-       
-        //3) Asigna esos datos en un nuevo objeto
-       
-
-    }
-
     Vector3 ParseStringToVector3(string input)
     {
         Vector3 result = Vector3.zero;
@@ -94,12 +83,75 @@ public class FileSystem : MonoBehaviour
             {
                 Debug.LogError("No se pudieron convertir todos los componentes a numeros.");
             }
+           
         }
         else
         {
             Debug.LogWarning("El formato del string no es valido.");
         }
         return result;
+    }
+
+    public void SaveToJSON(string _fileName, object _data)
+    {
+        string JSONData = JsonUtility.ToJson(_data);
+        if(JSONData.Length != 0)
+        {
+            Debug.Log("JSON STRING: " + JSONData);
+            CreateFile(_fileName, ".json", JSONData);
+        }
+        else
+        {
+            Debug.LogWarning("File System: string JSONData is empty, please check saved object");
+        }
+       
+    }
+
+    object LoadFromJSON(string _fileName)
+    {
+        object data = null;
+        string JSONData = ReadFile(_fileName, ".json");
+        if (JSONData.Length != 0)
+        {
+            Debug.Log("DATA FROM FILE: " + JSONData);
+            JsonUtility.FromJsonOverwrite(JSONData, data);
+        }
+        else
+        {
+            Debug.LogWarning("File System: string JSONData is empty, please check saved object");
+        }
+        return data;
+    }
+    T LoadFromJSON<T>(string _fileName) where T: new()
+    {
+        T data = new T();
+        string JSONData = ReadFile(_fileName, ".json");
+        if(JSONData.Length != 0)
+        {
+            Debug.Log("DATA FROM FILE:" + JSONData);
+            JsonUtility.FromJsonOverwrite(JSONData, data);
+        }
+        else
+        {
+            Debug.LogWarning("File System: string JSONData is empty, please check saved object");
+        }
+        return data;
+    }
+
+    void Start()
+    {
+        PlayerData p; //= new PlayerData("Cristian", "Sword", 1234);
+        p = (PlayerData)LoadFromJSON("Cristian");
+        //SaveToJSON(p.Name, p);
+        
+        //1) Guarda la posicion en un nuevo archivo
+        SaveObjectPosition(obj.transform);
+        //2) Lee l ainformacion de ese archivo
+        string data = ReadFile("example", "_txt");
+        Debug.Log("Informacion del archivo: \n" + data);
+        //3) Asigna esos datos en un nuevo objeto
+        obj2.transform.position = ParseStringToVector3(data);
+    
     }
 
     void Update()
