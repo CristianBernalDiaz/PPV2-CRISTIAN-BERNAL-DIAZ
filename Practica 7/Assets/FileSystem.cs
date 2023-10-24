@@ -3,12 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.UIElements;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class FileSystem : MonoBehaviour
 {
+    public static FileSystem instance;
     public GameObject obj;
     public GameObject obj2;
     public bool isSavingPosition = false;
+    PlayerData p;
+
+    private void Awake()
+    {
+        if (instance! == null)
+        {
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     void CreateFile(string _fileName, string _extension, string _data)
     {
         //1) Acceder al path del archivo
@@ -122,6 +139,7 @@ public class FileSystem : MonoBehaviour
         }
         return data;
     }
+  
     T LoadFromJSON<T>(string _fileName) where T: new()
     {
         T data = new T();
@@ -138,17 +156,35 @@ public class FileSystem : MonoBehaviour
         return data;
     }
 
+    public void SaveToBinary(string _fileName, object _data)
+    {
+        //Creamo un nuevo formateador de binario}
+        BinaryFormatter bf = new BinaryFormatter();
+        //Obtener el path  para guardar y asignar el nombre del archivo
+        string path = Application.dataPath + "/Resourses/" + _fileName + ".file";
+        //Crear un nuevo archivo
+        FileStream stream = new FileStream(path, FileMode.Create);
+        //Serializamos la informacion y guardamos el archivo
+        bf.Serialize(stream, _data);
+        //Cerramos el archivo
+        stream.Close();
+    }
+
     void Start()
     {
-        PlayerData p; //= new PlayerData("Cristian", "Sword", 1234);
-        p = (PlayerData)LoadFromJSON("Cristian");
+         //= new PlayerData("Cristian", "Sword", 1234);
+        SaveToBinary("Cris", p);
+        //p =LoadFrom JASON("Cristian");
+        //p =LoadFrom JASON("Cristian");
+        p = LoadFromJSON<PlayerData>("Crsitain");
+
         //SaveToJSON(p.Name, p);
         
         //1) Guarda la posicion en un nuevo archivo
         SaveObjectPosition(obj.transform);
         //2) Lee l ainformacion de ese archivo
         string data = ReadFile("example", "_txt");
-        Debug.Log("Informacion del archivo: \n" + data);
+        Debug.Log("Informacion del archivo: \n" + data); 
         //3) Asigna esos datos en un nuevo objeto
         obj2.transform.position = ParseStringToVector3(data);
     
