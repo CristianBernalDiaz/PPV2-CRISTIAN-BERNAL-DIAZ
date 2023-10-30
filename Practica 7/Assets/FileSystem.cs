@@ -12,7 +12,7 @@ public class FileSystem : MonoBehaviour
     public GameObject obj;
     public GameObject obj2;
     public bool isSavingPosition = false;
-    PlayerData p;
+    public PlayerData p;
 
     private void Awake()
     {
@@ -124,21 +124,8 @@ public class FileSystem : MonoBehaviour
        
     }
 
-    object LoadFromJSON(string _fileName)
-    {
-        object data = null;
-        string JSONData = ReadFile(_fileName, ".json");
-        if (JSONData.Length != 0)
-        {
-            Debug.Log("DATA FROM FILE: " + JSONData);
-            JsonUtility.FromJsonOverwrite(JSONData, data);
-        }
-        else
-        {
-            Debug.LogWarning("File System: string JSONData is empty, please check saved object");
-        }
-        return data;
-    }
+    
+    
   
     T LoadFromJSON<T>(string _fileName) where T: new()
     {
