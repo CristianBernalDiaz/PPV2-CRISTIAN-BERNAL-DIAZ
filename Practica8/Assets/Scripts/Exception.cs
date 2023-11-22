@@ -6,6 +6,8 @@ using Cainos.PixelArtTopDown_Basic;
 
 public class Excepciones : MonoBehaviour
 {
+    public GameObject Glow;
+
     int divide(int a, int b)
     {
         if (b == 0)
@@ -36,7 +38,7 @@ public class Excepciones : MonoBehaviour
             int result = divide(10, 0);
             try
             {
-                if(result < 0)
+                if (result < 0)
                 {
                     throw new Exception("Error: No puedes tener un valor negativo a zero en una división");
                 }
@@ -87,7 +89,7 @@ public class Excepciones : MonoBehaviour
             {
                 if (collision.GetComponent<TopDownCharacterController>().id == 1)
                 {
-                    transform.parent.GetChild(0).gameObject.SetActive(true);
+                    Glow.SetActive(true);
                 }
                 else
                 {
