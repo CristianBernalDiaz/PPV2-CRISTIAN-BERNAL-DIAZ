@@ -145,7 +145,7 @@ public class FileSystem : MonoBehaviour
 
     public void SaveToBinary(string _fileName, object _data)
     {
-        //Creamo un nuevo formateador de binario}
+        //Creamos un nuevo formateador de binario}
         BinaryFormatter bf = new BinaryFormatter();
         //Obtener el path  para guardar y asignar el nombre del archivo
         string path = Application.dataPath + "/Resourses/" + _fileName + ".file";
@@ -163,7 +163,7 @@ public class FileSystem : MonoBehaviour
         SaveToBinary("Cris", p);
         //p =LoadFrom JASON("Cristian");
         //p =LoadFrom JASON("Cristian");
-        p = LoadFromJSON<PlayerData>("Crsitain");
+        p = LoadFromJSON<PlayerData>("Crsitan");
 
         //SaveToJSON(p.Name, p);
         
