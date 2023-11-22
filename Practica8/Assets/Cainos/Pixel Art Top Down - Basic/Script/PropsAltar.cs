@@ -17,6 +17,10 @@ namespace Cainos.PixelArtTopDown_Basic
         private void OnTriggerEnter2D(Collider2D other)
         {
             targetColor = new Color(1, 1, 1, 1);
+            if (other.CompareTag("Player"))
+            {
+                other.GetComponent<TopDownCharacterController>().id = 1;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)

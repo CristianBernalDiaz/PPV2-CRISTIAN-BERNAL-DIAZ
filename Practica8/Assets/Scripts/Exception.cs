@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Cainos.PixelArtTopDown_Basic;
 
 public class Excepciones : MonoBehaviour
 {
@@ -78,18 +79,31 @@ public class Excepciones : MonoBehaviour
         }
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-        {
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
+            try
+            {
+                if (collision.GetComponent<TopDownCharacterController>().id == 1)
+                {
+                    transform.parent.GetChild(0).gameObject.SetActive(true);
+                }
+                else
+                {
+                    throw new Exception("You dont the key..., looser xD");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("Game: " + ex.Message);
+            }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            transform.GetChild(0).gameObject.SetActive(false);
+            transform.parent.GetChild(0).gameObject.SetActive(false);
         }
     }
 
