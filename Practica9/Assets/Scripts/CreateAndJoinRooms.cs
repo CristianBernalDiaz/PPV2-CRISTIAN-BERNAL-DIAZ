@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class CreateAndJoinRooms : MonoBehaviour
+public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
     public InputField createInput;
     public InputField joinInput;
@@ -16,6 +16,10 @@ public class CreateAndJoinRooms : MonoBehaviour
     public void JointeRoom()
     {
         PhotonNetwork.JoinRoom(createInput.text);
+    }
+    public override void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("Game");
     }
     void Start()
     {
